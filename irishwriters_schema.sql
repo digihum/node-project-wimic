@@ -202,6 +202,7 @@ CREATE TABLE `list_manuscripts` (
 ,  `reference_id` varchar(50) DEFAULT NULL
 ,  `collection` char(50) DEFAULT NULL
 ,  PRIMARY KEY (`id`)
+,  FOREIGN KEY (`collection`) REFERENCES `list_collections` (`DB_ID`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 CREATE TABLE `list_languages` (
   `language` varchar(50) NOT NULL
@@ -281,6 +282,7 @@ CREATE TABLE `col_researchers` (
 CREATE TABLE `col_publication_language` (
   `publication_id` integer DEFAULT '0'
 ,  `language` varchar(50) DEFAULT NULL
+,  FOREIGN KEY (`publication_id`) REFERENCES `pub_Publications` (`DB_id`) ON UPDATE CASCADE
 );
 CREATE TABLE `col_people_manuscripts` (
   `DB_ID` char(50) NOT NULL DEFAULT 'GenGUID()'
@@ -288,6 +290,7 @@ CREATE TABLE `col_people_manuscripts` (
 ,  `manuscript` char(50) DEFAULT NULL
 ,  PRIMARY KEY (`DB_ID`)
 ,  FOREIGN KEY (`person`) REFERENCES `people` (`DB_ID`) ON UPDATE CASCADE
+,  FOREIGN KEY (`manuscript`) REFERENCES `list_manuscripts` (`id`) ON UPDATE CASCADE
 );
 CREATE TABLE `col_Authors` (
   `DB_id` integer NOT NULL PRIMARY KEY AUTOINCREMENT
