@@ -20,25 +20,19 @@ module.exports = (old_db, new_db) => {
         });
     }
 
-    old_db.select()
-    .from('pub_Publications')
-    .innerJoin('pub_play', 'pub_Publications.DB_id', 'pub_play.publication_id');
+    const tables = ['play', 'book', 'journal_edition', 'article', 'movie'];
 
-    old_db.select()
-    .from('pub_Publications')
-    .innerJoin('pub_book', 'pub_Publications.DB_id', 'pub_book.publication_id');
+    return new_db('entity_types').select()
+    .then((entityTypes) => {
 
-    old_db.select()
-    .from('pub_Publications')
-    .innerJoin('pub_journal_edition', 'pub_Publications.DB_id', 'pub_journal_edition.publication_id');
-
-    old_db.select()
-    .from('pub_Publications')
-    .innerJoin('pub_article', 'pub_Publications.DB_id', 'pub_article.publication_id');
-
-    old_db.select()
-    .from('pub_Publications')
-    .innerJoin('pub_movie', 'pub_Publications.DB_id', 'pub_article.movie_id');
-
-    return Promise.resolve();
+        return Promise.all(tables.map((table) => {
+            return old_db.select()
+            .from('pub_Publications')
+            .innerJoin('pub_' + table, 'pub_Publications.DB_id', 'pub_' + table + '.publication_id')
+            .then((results) => {
+                return Promise.all((result) =>
+                    addPublication(result, entityType.find((a) => a.name === table).uid));
+            });
+        }));
+    });
 };
