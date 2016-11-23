@@ -1,0 +1,358 @@
+predicates:
+
+    # general
+
+    notes:
+        domain: Any
+        range: string
+
+    original id:
+        domain: Any
+        range: integer
+
+    # person biographical
+
+    title:
+        domain: person
+        range: string
+
+    lastname_keyname:
+        domain: person
+        range: string
+
+    firstname:
+        domain: person
+        range: string
+
+    middle_names:
+        domain: person
+        range: string
+
+    primary_researcher:
+        domain: person
+        range: string
+
+    male_female:
+        domain: person
+        range: string
+
+    type of name:
+        domain: person
+        range: string
+
+    is alternative name of:
+        domain: person
+        range: person
+
+    birth date:
+        domain: person
+        range: date
+
+    birthplace:
+        domain: person
+        range: location
+
+    death date:
+        domain: person
+        range: date
+
+    death place:
+        domain: person
+        range: location
+
+    associated place:
+        domain: person
+        range: location
+
+    education:
+        domain: person
+        range: string
+
+    # general company
+    name:
+        domain: company
+        range: string
+
+    location:
+        domain: company
+        range: location
+
+    # author roles
+
+    is sole author:
+        domain: person
+        range: publication
+
+    is main author:
+        domain: person
+        range: publication
+
+    is co author:
+        domain: person
+        range: publication
+
+    is editor:
+        domain: person
+        range: publication
+
+    is co-editor:
+        domain: person
+        range: publication
+
+    is foreword author:
+        domain: person
+        range: publication
+
+    is translator:
+        domain: person
+        range: publication
+
+    is illustrator:
+        domain: person
+        range: publication
+
+    is ghost:
+        domain: person
+        range: publication
+
+    is preface:
+        domain: person
+        range: publication
+
+    is original author:
+        domain: person
+        range: publication
+
+    is sub editor:
+        domain: person
+        range: publication
+
+    is compiler:
+        domain: person
+        range: publication
+
+    is introduction author:
+        domain: person
+        range: publication
+
+    is notes author:
+        domain: person
+        range: publication
+
+    is director:
+        domain: person
+        range: publication
+
+    is co-director:
+        domain: person
+        range: publication
+
+    is producer:
+        domain: person
+        range: publication
+
+    is executive producer:
+        domain: person
+        range: publication
+
+    is co-producer:
+        domain: person
+        range: publication
+
+    is scriptwriter:
+        domain: person
+        range: publication
+
+    is co-scriptwriter:
+        domain: person
+        range: publication
+
+    is screenwriter:
+        domain: person
+        range: publication
+
+    is co-screenwriter:
+        domain: person
+        range: publication
+
+    is cinematographer:
+        domain: person
+        range: publication
+
+    is animator:
+        domain: person
+        range: publication
+
+    is interviewer:
+        domain: person
+        range: publication
+
+    is interviewee:
+        domain: person
+        range: publication
+
+
+    # general publication
+    publication title:
+        domain: publication
+        range: string
+        
+    subtitle:
+        domain: publication
+        range: string
+
+    fiction_nonfiction:
+        domain: publication
+        range: string
+
+    genre:
+        domain: publication
+        range: string
+
+    is first edition:
+        domain: publication
+        range: string
+
+    publish date:
+        domain: publication
+        range: date
+
+    # book
+    number of volumes:
+        domain: book
+        range: integer
+
+    number of pages:
+        domain: book
+        range: integer
+
+    illustrated:
+        domain: book
+        range: string
+
+    known reprints:
+        domain: book
+        range: integer
+
+    # book chapter
+    start page:
+        domain: book chapter
+        range: integer
+
+    end page:
+        domain: book chapter
+        range: integer
+
+    published in:
+        domain: book chapter
+        range: book
+
+    # book instance
+    publisher:
+        domain: book instance
+        range: publisher
+
+    printer:
+        domain: book instance
+        range: printer
+
+    publication location:
+        domain: book instance
+        range: location
+
+    # play
+    place of first production:
+        domain: play
+        range: location
+
+    first revival:
+        domain: play
+        range: date
+
+    place of first revival:
+        domain: play
+        range: location
+
+    theatre company:
+        domain: play
+        range: theatre
+
+    venue:
+        domain: play
+        range: string
+
+    revival venue:
+        domain: play
+        range: string
+
+    # journal edition
+    season:
+        domain: journal edition
+        range: season
+
+    from:
+        domain: journal edition
+        range: date
+
+    to:
+        domain: journal edition
+        range: date
+
+    subseries:
+        domain: journal edition
+        range: integer
+
+    # article
+    article published in:
+        domain: article
+        range: series
+
+    article start page:
+        domain: article
+        range: integer
+
+    article end page:
+        domain: article
+        range: integer
+
+    continued_on:
+        domain: article
+        range: integer
+
+    continued end:
+        domain: article
+        range: integer
+
+    article illustrated:
+        domain: article
+        range: string
+
+    # series
+    type:
+        domain: series
+        range: string
+
+    previous id:
+        domain: series
+        range: integer
+
+    # movie
+    length (minutes):
+        domain: movie
+        range: integer
+
+    production company:
+        domain: movie
+        range: movie company
+
+    country of origin:
+        domain: movie
+        range: country
+
+    date_video:
+        domain: movie
+        range: date
+
+    date_dvd:
+        domain: movie
+        range: date

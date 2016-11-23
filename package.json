@@ -1,0 +1,22 @@
+{
+  "name": "irish-writers",
+  "version": "1.0.0",
+  "description": "This project contains a data dump from the previous Irish writers project which has ceased to function. The intention it to bring the database back online with a simple read-only server.",
+  "main": "transform/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "copy-db": "rm mydb.sqlite & cp blank.sqlite mydb.sqlite"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@actechlab.warwick.ac.uk:digital-humanities/irish-writers.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "js-yaml": "^3.7.0",
+    "knex": "^0.12.6",
+    "sqlite3": "^3.1.8"
+  }
+}

@@ -1,0 +1,23 @@
+entity_types:
+    person:
+    publication:
+        movie:
+        play:
+        article:
+            series:
+        book:
+            book instance:
+        book chapter:
+        journal edition:
+    company:
+        publisher:
+        printer:
+        theatre:
+        movie company:
+    language:
+    location:
+        country:
+            county:
+                settlement:
+    season:
+
