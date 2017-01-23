@@ -18,3 +18,8 @@ img.header-icon {
 	height: 0.8em;
     margin-right: 0.2em;
 }
+
+body {
+	background: url(/paper_fibers.png);
+    font-family: 'Vollkorn', serif;
+}
