@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Irish Writers | {{core.title}}</title>
+	<link href="https://fonts.googleapis.com/css?family=Vollkorn" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="/site.css">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+</head>
+<body>
+	<div id='main'>
+		<span class='home-link'><a href='/'><i class='fa fa-home'></i></a></span>
+		<h1>{{core.title}}</h1>
+		<h2>{{core.subtitle}}</h2>
+		{{#each authors}}
+			<a href='/people/{{person_id}}'>{{title}} {{firstname}} {{lastname_keyname}}</a>
+		{{/each}}
+		<div>Genre: {{core.genre}}</div>
+		
+		{{#if book}}
+			<section>
+			{{book.illustrated}}
+			</section>
+		{{/if}}
+	</div>
+</body>
+</html>

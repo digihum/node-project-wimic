@@ -5,6 +5,9 @@
 // printers
 // pub_movie - country of origin * 3
 
+const yaml = require('js-yaml');
+const fs   = require('fs');
+
 module.exports = (old_db, new_db) => {
 
 // add a 'name' field
@@ -115,18 +118,29 @@ return Promise.all([
             placesTree[country][county][place.settlement] = {};
         }     
     }
-    
-    return Promise.resolve(placesTree);
-}).then((placesTree) => {
-    return new_db('entity_types').select()
-    .then((entityTypes) => {
-        const countryType = entityTypes.find((et) => et.name === 'country');
-        const countyType = entityTypes.find((et) => et.name === 'county');
-        const settlementType = entityTypes.find((et) => et.name === 'settlement');
 
-        return Promise.all(Object.keys(placesTree).map((name) => createLocationEntity(name, placesTree[name], 0,
-             [countryType.uid, countyType.uid, settlementType.uid], 0)));
-    });
-});
+    const yamlTree = yaml.safeDump(placesTree);
+
+    return new Promise((res, rej) => {
+        fs.writeFile("locations.yaml", yamlTree, function(err) {
+            if(err) {
+                rej(err);
+            }
+
+            res(placesTree);
+        }); 
+    })
+})
+// .then((placesTree) => {
+//     return new_db('entity_types').select()
+//     .then((entityTypes) => {
+//         const countryType = entityTypes.find((et) => et.name === 'country');
+//         const countyType = entityTypes.find((et) => et.name === 'county');
+//         const settlementType = entityTypes.find((et) => et.name === 'settlement');
+
+//         return Promise.all(Object.keys(placesTree).map((name) => createLocationEntity(name, placesTree[name], 0,
+//              [countryType.uid, countyType.uid, settlementType.uid], 0)));
+//     });
+// });
 
 }

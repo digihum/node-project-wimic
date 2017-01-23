@@ -28,8 +28,10 @@ const new_db = Knex({
 //debug: true
 });
 
-require('./metadata')(old_db, new_db)
-.then(() => require('./locations')(old_db, new_db))
+
+//require('./metadata')(old_db, new_db)
+//.then(() => require('./locations')(old_db, new_db))
 //.then(() => require('./people')(old_db, new_db))
-.then(() => require('./publications')(old_db, new_db))
+//.then(() => require('./publications')(old_db, new_db))
+require('./locations')(old_db, new_db)
 .then(() => process.exit(0));

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Irish Writers</title>
+	<link href="https://fonts.googleapis.com/css?family=Vollkorn" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="/site.css">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+	<div id='main'>
+		<h1><img src='/shamrock.png' class='header-icon'></img>Irish Writers Database</h1>
+		<small>A database of historic and contemporary writers from Ireland</small>
+		<input type='text' class='big-search' id='name-filter' placeholder='Type to search..'/>
+		<h2>All People</h2>
+		<ul id='people-list'>
+		{{#each people}}
+			<li><a href='/people/{{DB_id}}'>{{title}} {{firstname}} {{lastname_keyname}}</a></li>
+		{{/each}}
+		</ul>
+	</div>
+	<script>
+		jQuery('#name-filter').on('keyup', function(e) {
+			    // Declare variables
+			var input, filter, ul, li, a, i;
+			input = document.getElementById('name-filter');
+			filter = input.value.toUpperCase();
+			ul = document.getElementById("people-list");
+			li = ul.getElementsByTagName('li');
+
+			// Loop through all list items, and hide those who don't match the search query
+			requestAnimationFrame(function() {
+			for (i = 0; i < li.length; i++) {
+				a = li[i].getElementsByTagName("a")[0];
+				if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+					li[i].style.display = "";
+				} else {
+					li[i].style.display = "none";
+				}
+			}
+			});
+		});
+	</script>
+</body>
+</html>
