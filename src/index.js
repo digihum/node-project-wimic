@@ -3,6 +3,8 @@ const page = require('page');
 
 const targetId = 'render-target';
 
+const apiURL = 'http://otros.lnx.warwick.ac.uk/';
+
 const templates = {
 	home: require('../templates/home.hbs'),
 	people: require('../templates/people.hbs'),
@@ -11,7 +13,7 @@ const templates = {
 };
 
 const getJSON = function(url) {
-	return $.getJSON(url);
+	return $.getJSON(apiURL + url);
 };
 
 $(document).ready(function() {
@@ -21,7 +23,9 @@ $(document).ready(function() {
 	page.base('/fac/arts/research/digitalhumanities/tim-sandbox/');
 
 	page('/', function() {
-		renderTarget.innerHTML = templates.home();
+		getJSON('people').then((data) => {
+			renderTarget.innerHTML = templates.home(data);
+		});
 	});
 
 	page('/people', function() {

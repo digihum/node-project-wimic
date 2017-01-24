@@ -1,5 +1,6 @@
 var _ = require('koa-route');
 var koa = require('koa');
+var cors = require('koa-cors');
 var app = koa();
 var fs = require('fs');
 var Knex = require('knex');
@@ -17,6 +18,13 @@ const knexConfig = {
 knex = Knex(knexConfig);
 
 app.use(gzip());
+
+app.use(cors({
+	origin: function(req) {
+		console.log(req.header('Origin'));
+		return req.header('Origin') === 'warwick.ac.uk';
+	}
+}));
 
 app.use(_.get('/people', function* (id) {
 	const queryParams = queryString.parse(this.request.querystring)
