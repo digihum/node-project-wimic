@@ -1,19 +1,10 @@
-var serve = require('koa-static');
 var _ = require('koa-route');
 var koa = require('koa');
 var app = koa();
-var Handlebars = require('handlebars');
 var fs = require('fs');
 var Knex = require('knex');
-
-const rawItemTemplate = fs.readFileSync('./templates/item.hbs');
-const itemTemplate = Handlebars.compile(rawItemTemplate.toString());
-
-const rawPersonTemplate = fs.readFileSync('./templates/person.hbs');
-const personTemplate = Handlebars.compile(rawPersonTemplate.toString());
-
-const peopleTemplate = Handlebars.compile(fs.readFileSync('./templates/people.hbs').toString());
-const homeTemplate = Handlebars.compile(fs.readFileSync('./templates/home.hbs').toString());
+var gzip = require('koa-gzip');
+var queryString = require('querystring');
 
 const knexConfig = {
 	client: 'sqlite3',
@@ -25,20 +16,22 @@ const knexConfig = {
 
 knex = Knex(knexConfig);
 
-// public assets
-app.use(serve('./public'));
-
-app.use(_.get('/', function* (id) {
-	const people = yield knex.select().from('people');
-
-	this.body = homeTemplate({ people });
-}));
-
+app.use(gzip());
 
 app.use(_.get('/people', function* (id) {
-	const people = yield knex.select().from('people');
+	const queryParams = queryString.parse(this.request.querystring)
 
-	this.body = peopleTemplate({ people });
+	if(queryParams.page !== undefined) {
+		this.body = yield knex.select('DB_id', 'title', 'forename', 'lastname_keyname').from('people').limit(50).offset(parseInt(queryParams.page) * 50)
+		return;
+	}
+
+	if(queryParams.count !== undefined) {
+		this.body = yield knex.select().from('people').count().then((result) => result[0]['count(*)']);
+		return;
+	}
+
+	this.body = yield knex.select('DB_id', 'title', 'forename', 'lastname_keyname').from('people');
 }));
 
 // $ GET /package.json
@@ -57,7 +50,7 @@ app.use(_.get('/publications/:id', function* (id) {
 		.where({ publication_id: id })
 		.innerJoin('people', 'col_Authors.person_id', 'people.DB_id')
 
-	this.body = itemTemplate({ core, play, movie, article, book, bookChapter, article, authors });
+	this.body = { core, play, movie, article, book, bookChapter, article, authors };
 }));
 
 app.use(_.get('/people/:id', function* (id) {
@@ -67,7 +60,7 @@ app.use(_.get('/people/:id', function* (id) {
 	.where({ person_id: id })
 	.innerJoin('pub_Publications', 'col_Authors.publication_id', 'pub_Publications.DB_id');
 
-	this.body = personTemplate({ core, works });
+	this.body = { core, works };
 }));
 
 app.listen(3000);
