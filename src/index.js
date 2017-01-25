@@ -32,7 +32,13 @@ $(document).ready(function() {
 
 		const queryValues = queryString.parse(ctx.querystring);
 
-		getJSON('people?' + ctx.querystring).then((data) => {
+		const apiQuery = { page: 0 };
+
+		if (queryValues.search !== undefined) {
+			apiQuery.search = queryValues.search;
+		}
+
+		getJSON('people?' + queryString.stringify(apiQuery) ).then((data) => {
 
 			if(document.getElementById('people-list') !== null) {
 

@@ -28,7 +28,7 @@ app.use(cors({
 app.use(_.get('/people', function* (id) {
 	const queryParams = queryString.parse(this.request.querystring)
 
-	let knexQuery =  knex.select('DB_id', 'title', 'forename', 'lastname_keyname').from('people').orderBy('lastname_keyname', 'asc');
+	let knexQuery =  knex.select('DB_id', 'title', 'firstname', 'lastname_keyname').from('people').orderBy('lastname_keyname', 'asc');
 
 	if(queryParams.page !== undefined) {
 		knexQuery = knexQuery.limit(50).offset(parseInt(queryParams.page) * 50);
