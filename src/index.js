@@ -24,7 +24,7 @@ $(document).ready(function() {
 
 	page('/', function() {
 		getJSON('people').then((data) => {
-			renderTarget.innerHTML = templates.home(data);
+			renderTarget.innerHTML = templates.home({ people: data });
 		});
 	});
 
