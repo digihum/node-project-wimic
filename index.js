@@ -22,7 +22,8 @@ app.use(gzip());
 app.use(cors({
 	origin: function(req) {
 		return req.header.origin === 'http://www2.warwick.ac.uk' || req.header.origin === undefined ? req.header.origin : false;
-	}
+	},
+	expose: ['X-total-count']
 }));
 
 app.use(_.get('/people', function* (id) {
