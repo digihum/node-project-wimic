@@ -30,12 +30,6 @@ app.use(_.get('/people', function* (id) {
 
 	let knexQuery =  knex.select('DB_id', 'title', 'firstname', 'lastname_keyname').from('people').orderBy('lastname_keyname', 'asc');
 
-	if(queryParams.page !== undefined) {
-		knexQuery = knexQuery.limit(50).offset(parseInt(queryParams.page) * 50);
-	}
-
-
-
 	if(queryParams.search !== undefined) {
 		knexQuery = knexQuery
 		.where('lastname_keyname', 'like', '%' + queryParams.search + '%')
@@ -46,8 +40,10 @@ app.use(_.get('/people', function* (id) {
 		knexQuery = knexQuery.where('lastname_keyname', 'like', '%' + queryParams.lastname + '%');
 	}
 
-	if(queryParams.count !== undefined) {
-		knexQuery = knexQuery.count().then((result) => result[0]['count(*)']);
+	if(queryParams.page !== undefined) {
+		const count = yield knexQuery.clone().count().then((result) => result[0]['count(*)']);
+		knexQuery = knexQuery.limit(50).offset(parseInt(queryParams.page) * 50);		
+		this.set('X-total-count', count);
 	}
 
 	this.body = yield knexQuery;
