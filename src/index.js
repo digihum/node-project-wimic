@@ -26,9 +26,17 @@ $(document).ready(function() {
 
 	const renderTarget = document.getElementById(targetId);
 
-	page.base('/fac/arts/research/digitalhumanities/tim-sandbox/');
+	const rootURL = '/fac/arts/research/digitalhumanities/tim-sandbox/';
+
+	page.base(rootURL);
+
+	$('a[data-page-url="' + rootURL + '"]').on('click', function() {
+		page.redirect('/');
+	});
 
 	page('/', function(ctx) {
+
+		$('.id7-page-title h1').text('WIMIC Database');
 
 		const queryValues = queryString.parse(ctx.querystring);
 
@@ -48,14 +56,15 @@ $(document).ready(function() {
 
 		getJSON('people?' + queryString.stringify(apiQuery) ).then((data, status, xhr) => {
 
-			if(document.getElementById('people-list') !== null) {
+			if(document.getElementById('people-list-target') !== null) {
 
-				document.getElementById('people-list').innerHTML = partials.peopleList({ people: data, initialSearchValue: queryValues.search || '' });
+				document.getElementById('people-list-target').innerHTML = partials.peopleList({ people: data, initialSearchValue: queryValues.search || '' });
 			} else {
 				renderTarget.innerHTML = templates.home({ people: data, initialSearchValue: queryValues.search || '' });
 				document.getElementById('name-filter').addEventListener('keyup', function(e) {
 					if (e.target.value.length > 0) {
-						apiQuery.search = e.target.value;						
+						apiQuery.search = e.target.value;
+						apiQuery.offset = 0;					
 					} else {
 						delete apiQuery.search;
 					}			
@@ -64,8 +73,10 @@ $(document).ready(function() {
 			}
 
 			$('#main-pagination').twbsPagination({
-				totalPages: Math.ceil(parseInt(xhr.getResponseHeader('X-total-count'))/50),
-				visiblePages: 7,
+				totalPages: Math.ceil(parseInt(xhr.getResponseHeader('X-total-count'))/apiQuery.limit),
+				visiblePages: 12,
+				startPage: Math.floor(parseInt(apiQuery.offset)/parseInt(apiQuery.limit)) + 1,
+				initiateStartPageClick: false,
 				onPageClick: function (event, pageNum) {
 					apiQuery.offset = (pageNum - 1) * apiQuery.limit;
 					page.redirect('/?' + queryString.stringify(apiQuery));
@@ -81,12 +92,18 @@ $(document).ready(function() {
 
 	page('/people/:id', function(ctx) {
 		getJSON('people/' + ctx.params.id).then((data) => {
+			let name = [data.core.title, data.core.firstname, data.core.lastname_keyname]
+			.filter((a) => a !== null && a !== undefined)
+			.join(' ');
+			$('.id7-page-title h1').text(name);
 			renderTarget.innerHTML = templates.person(data);
 		});
 	});
 
 	page('/publications/:id', function(ctx) {
+
 		getJSON('publications/' + ctx.params.id).then((data) => {
+			$('.id7-page-title h1').text(data.core.title);
 			renderTarget.innerHTML = templates.item(data);
 		});
 	});

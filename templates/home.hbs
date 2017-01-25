@@ -2,9 +2,7 @@
 	<small>A database of historic and contemporary writers from Ireland</small>
 	<input type='text' class='big-search' id='name-filter' placeholder='Type to search..' value='{{initialSearchValue}}' />
 	<h2>All People</h2>
-	<span class='people-list'>
-	</span>
-	{{> _peopleList }}
-	<ul class="pagination" id="main-pagination">
-	</ul>
+	<span id='people-list-target'>
+		{{> _peopleList }}
+	</span>	
 </div>
