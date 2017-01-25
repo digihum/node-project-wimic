@@ -28,29 +28,29 @@ app.use(cors({
 app.use(_.get('/people', function* (id) {
 	const queryParams = queryString.parse(this.request.querystring)
 
+	let knexQuery =  knex.select('DB_id', 'title', 'forename', 'lastname_keyname').from('people').orderBy('lastname_keyname', 'asc');
+
 	if(queryParams.page !== undefined) {
-		this.body = yield knex.select('DB_id', 'title', 'forename', 'lastname_keyname').from('people').limit(50).offset(parseInt(queryParams.page) * 50).orderBy('lastname_keyname', 'asc');
-		return;
+		knexQuery = knexQuery.limit(50).offset(parseInt(queryParams.page) * 50);
 	}
 
-	if(queryParams.count !== undefined) {
-		this.body = yield knex.select().from('people').count().then((result) => result[0]['count(*)']);
-		return;
-	}
+
 
 	if(queryParams.search !== undefined) {
-		this.body = yield knex.select('DB_id', 'title', 'forename', 'lastname_keyname').from('people')
+		knexQuery = knexQuery
 		.where('lastname_keyname', 'like', '%' + queryParams.search + '%')
-		.orWhere('firstname', 'like', '%' + queryParams.search + '%').orderBy('lastname_keyname', 'asc');
-		return;
+		.orWhere('firstname', 'like', '%' + queryParams.search + '%');
 	}
 
 	if(queryParams.lastname !== undefined) {
-		this.body = yield knex.select('DB_id', 'title', 'forename', 'lastname_keyname').from('people').where('lastname_keyname', 'like', '%' + queryParams.lastname + '%').orderBy('lastname_keyname', 'asc');;
-		return;
+		knexQuery = knexQuery.where('lastname_keyname', 'like', '%' + queryParams.lastname + '%');
 	}
 
-	this.body = yield knex.select('DB_id', 'title', 'forename', 'lastname_keyname').from('people').orderBy('lastname_keyname', 'asc');
+	if(queryParams.count !== undefined) {
+		knexQuery = knexQuery.count().then((result) => result[0]['count(*)']);
+	}
+
+	this.body = yield knexQuery;
 }));
 
 // $ GET /package.json

@@ -1,33 +1,8 @@
 <div id='main'>
 	<small>A database of historic and contemporary writers from Ireland</small>
-	<input type='text' class='big-search' id='name-filter' placeholder='Type to search..'/>
+	<input type='text' class='big-search' id='name-filter' placeholder='Type to search..' value='{{initialSearchValue}}' />
 	<h2>All People</h2>
-	<ul id='people-list'>
-	{{#each people}}
-		<li><a href='/people/{{DB_id}}'>{{title}} {{firstname}} {{lastname_keyname}}</a></li>
-	{{/each}}
-	</ul>
+	<span class='people-list'>
+	</span>
+	{{> _peopleList }}
 </div>
-<script>
-	jQuery('#name-filter').on('keyup', function(e) {
-		    // Declare variables
-		var input, filter, ul, li, a, i;
-		input = document.getElementById('name-filter');
-		filter = input.value.toUpperCase();
-		ul = document.getElementById("people-list");
-		li = ul.getElementsByTagName('li');
-
-		// Loop through all list items, and hide those who don't match the search query
-		requestAnimationFrame(function() {
-		for (i = 0; i < li.length; i++) {
-			a = li[i].getElementsByTagName("a")[0];
-			if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
-				li[i].style.display = "";
-			} else {
-				li[i].style.display = "none";
-			}
-		}
-		});
-	});
-</script>
-

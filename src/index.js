@@ -1,5 +1,6 @@
 const $ = require('jquery');
 const page = require('page');
+const queryString = require('querystring');
 
 const targetId = 'render-target';
 
@@ -12,6 +13,11 @@ const templates = {
 	item: require('../templates/item.hbs')
 };
 
+const partials = {
+	peopleList: require('../templates/_peopleList.hbs')
+};
+
+
 const getJSON = function(url) {
 	return $.getJSON(apiURL + url);
 };
@@ -22,13 +28,31 @@ $(document).ready(function() {
 
 	page.base('/fac/arts/research/digitalhumanities/tim-sandbox/');
 
-	page('/', function() {
-		getJSON('people').then((data) => {
-			renderTarget.innerHTML = templates.home({ people: data });
+	page('/', function(ctx) {
+
+		const queryValues = queryString.parse(ctx.querystring);
+
+		getJSON('people?' + ctx.querystring).then((data) => {
+
+			if(document.getElementById('people-list') !== null) {
+
+				document.getElementById('people-list').innerHTML = partials.peopleList({ people: data, initialSearchValue: queryValues.search || '' });
+			} else {
+				renderTarget.innerHTML = templates.home({ people: data, initialSearchValue: queryValues.search || '' });
+				document.getElementById('name-filter').addEventListener('keyup', function(e) {
+					if (e.target.value.length > 0) {
+						page.redirect('/?search=' + e.target.value);
+					} else {
+						page.redirect('/');
+					}
+					
+				});
+			}
+		
 		});
 	});
 
-	page('/people', function() {
+	page('/people', function(ctx) {
 		renderTarget.innerHTML = templates.people();
 	});
 
