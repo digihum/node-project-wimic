@@ -32,17 +32,21 @@ $(document).ready(function() {
 
 		const queryValues = queryString.parse(ctx.querystring);
 
-		const apiQuery = { page: 0 };
+		const apiQuery = { offset: 0, limit: 50 };
 
 		if (queryValues.search !== undefined) {
 			apiQuery.search = queryValues.search;
 		}
 
-		if (queryValues.page !== undefined) {
-			apiQuery.page = queryValues.page;
+		if (queryValues.offset !== undefined) {
+			apiQuery.offset = queryValues.offset;
 		}
 
-		getJSON('people?' + queryString.stringify(apiQuery) ).then((data) => {
+		if (queryValues.limit !== undefined) {
+			apiQuery.limit = queryValues.limit;
+		}
+
+		getJSON('people?' + queryString.stringify(apiQuery) ).then((data, status, xhr) => {
 
 			if(document.getElementById('people-list') !== null) {
 
@@ -57,16 +61,16 @@ $(document).ready(function() {
 					}			
 					page.redirect('/?' + queryString.stringify(apiQuery));		
 				});
-				
-				$('#main-pagination').twbsPagination({
-					totalPages: Math.ceil(9647/50),
-					visiblePages: 7,
-					onPageClick: function (event, pageNum) {
-						apiQuery.page = pageNum - 1;
-						page.redirect('/?' + queryString.stringify(apiQuery));
-					}
-				});
 			}
+
+			$('#main-pagination').twbsPagination({
+				totalPages: Math.ceil(parseInt(xhr.getResponseHeader('X-total-count'))/50),
+				visiblePages: 7,
+				onPageClick: function (event, pageNum) {
+					apiQuery.offset = (pageNum - 1) * apiQuery.limit;
+					page.redirect('/?' + queryString.stringify(apiQuery));
+				}
+			});
 		
 		});
 	});

@@ -41,9 +41,9 @@ app.use(_.get('/people', function* (id) {
 		knexQuery = knexQuery.where('lastname_keyname', 'like', '%' + queryParams.lastname + '%');
 	}
 
-	if(queryParams.page !== undefined) {
+	if(queryParams.limit !== undefined && queryParams.offset !== undefined) {
 		const count = yield knexQuery.clone().count().then((result) => result[0]['count(*)']);
-		knexQuery = knexQuery.limit(50).offset(parseInt(queryParams.page) * 50);		
+		knexQuery = knexQuery.limit(parseInt(queryParams.limit)).offset(parseInt(queryParams.offset));		
 		this.set('X-total-count', count);
 	}
 
