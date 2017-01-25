@@ -1,0 +1,35 @@
+{{#if article }}
+<div class='info'>
+    <span>Type: Article</span>
+    {{#if article.article_subseries}}
+		<span>Article subseries: {{core.article_subseries}}</span>
+	{{/if}}
+
+    {{#if article.continuation_end }}
+		<span>Continuation end: {{article.continuation_end}}</span>
+	{{/if}}
+
+    {{#if article.continued_on }}
+		<span>Continued on: {{article.continued_on}}</span>
+	{{/if}}
+
+
+    {{#if article.start_page }}
+		<span>Start page: {{article.start_page}}</span>
+	{{/if}}
+
+
+    {{#if article.end_page }}
+		<span>End page: {{article.end_page}}</span>
+	{{/if}}
+
+
+    {{#if article.illustrated }}
+		<span>Illustrated: {{article.illustrated}}</span>
+	{{/if}}
+
+    	{{#if article.notes }}
+		<span>Notes: {{article.notes}}</span>
+	{{/if}}
+</div>
+{{/if}}

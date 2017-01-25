@@ -1,0 +1,20 @@
+{{#if movie }}
+<div class='info'>
+    <span>Type: Movie</span>
+    {{#if movie.country_of_origin}}
+		<span>Country of origin: {{movie.country_of_origin}} | {{movie.country_of_origin2}} | {{movie.country_of_origin3}}</span>
+	{{/if}}
+    	{{#if movie.date_dvd }}
+		<span>Date of dvd release: {{movie.date_dvd}}</span>
+	{{/if}}
+    	{{#if movie.date_video }}
+		<span>Date of video release: {{movie.date_video}}</span>
+	{{/if}}
+    	{{#if movie.length_minutes }}
+        <span>Length (minutes): {{movie.length_minutes}}</span>
+	{{/if}}
+    	{{#if movie.notes }}
+		<span>Notes: {{movie.notes}}</span>
+	{{/if}}
+</div>
+{{/if}}

@@ -1,14 +1,17 @@
 
 <div id='main'>
-	<h3>{{core.subtitle}}</h3>
+	<h4>People</h4>
 	{{#each authors}}
 		<a href='#!/people/{{person_id}}'>{{title}} {{firstname}} {{lastname_keyname}}</a>
 	{{/each}}
-	<div>Genre: {{core.genre}}</div>
-	
+	<h4>Details</h4>
+	<div>Genre: {{core.genre}}</div>	
 	{{#if book}}
 		<section>
 		{{book.illustrated}}
 		</section>
 	{{/if}}
+
+	{{>_movie}}
+	{{>_article}}
 </div>
