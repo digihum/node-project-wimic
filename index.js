@@ -19,17 +19,17 @@ knex = Knex(knexConfig);
 
 app.use(gzip());
 
-// app.use(cors({
-// 	origin: function(req) {
-// 		return req.header.origin === 'http://www2.warwick.ac.uk' ? req.header.origin : false;
-// 	}
-// }));
+app.use(cors({
+	origin: function(req) {
+		return req.header.origin === 'http://www2.warwick.ac.uk' ? req.header.origin : false;
+	}
+}));
 
 app.use(_.get('/people', function* (id) {
 	const queryParams = queryString.parse(this.request.querystring)
 
 	if(queryParams.page !== undefined) {
-		this.body = yield knex.select('DB_id', 'title', 'forename', 'lastname_keyname').from('people').limit(50).offset(parseInt(queryParams.page) * 50).orderBy('lastname_keyname', 'desc');
+		this.body = yield knex.select('DB_id', 'title', 'forename', 'lastname_keyname').from('people').limit(50).offset(parseInt(queryParams.page) * 50).orderBy('lastname_keyname', 'asc');
 		return;
 	}
 
@@ -41,16 +41,16 @@ app.use(_.get('/people', function* (id) {
 	if(queryParams.search !== undefined) {
 		this.body = yield knex.select('DB_id', 'title', 'forename', 'lastname_keyname').from('people')
 		.where('lastname_keyname', 'like', '%' + queryParams.search + '%')
-		.orWhere('firstname', 'like', '%' + queryParams.search + '%').orderBy('lastname_keyname', 'desc');;
+		.orWhere('firstname', 'like', '%' + queryParams.search + '%').orderBy('lastname_keyname', 'asc');
 		return;
 	}
 
 	if(queryParams.lastname !== undefined) {
-		this.body = yield knex.select('DB_id', 'title', 'forename', 'lastname_keyname').from('people').where('lastname_keyname', 'like', '%' + queryParams.lastname + '%').orderBy('lastname_keyname', 'desc');;
+		this.body = yield knex.select('DB_id', 'title', 'forename', 'lastname_keyname').from('people').where('lastname_keyname', 'like', '%' + queryParams.lastname + '%').orderBy('lastname_keyname', 'asc');;
 		return;
 	}
 
-	this.body = yield knex.select('DB_id', 'title', 'forename', 'lastname_keyname').from('people').orderBy('lastname_keyname', 'desc');
+	this.body = yield knex.select('DB_id', 'title', 'forename', 'lastname_keyname').from('people').orderBy('lastname_keyname', 'asc');
 }));
 
 // $ GET /package.json
