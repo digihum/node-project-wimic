@@ -29,7 +29,23 @@ app.use(cors({
 app.use(_.get('/people', function* (id) {
 	const queryParams = queryString.parse(this.request.querystring)
 
-	let knexQuery =  knex.select('DB_id', 'title', 'firstname', 'lastname_keyname').from('people').orderBy('lastname_keyname', 'asc');
+	let knexQuery =  knex.select('DB_id', 'title', 'firstname', 'lastname_keyname').from('people');
+
+	if(queryParams.sort !== undefined) {
+		switch(queryParams.sort) {
+			case 'lastname':
+				knexQuery = knexQuery.orderBy('lastname_keyname', 'asc');
+				break;
+			case 'firstname':
+				knexQuery = knexQuery.orderBy('firstname', 'asc')
+				break;
+			case 'birthyear':
+				knexQuery = knexQuery.orderBy(['birth_year', 'birth_month', 'birth_day_of_month'], 'asc')
+				break;
+		}
+	} else {
+		knexQuery = knexQuery.orderBy('lastname_keyname', 'asc');
+	}
 
 	if(queryParams.search !== undefined) {
 		knexQuery = knexQuery
