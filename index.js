@@ -66,6 +66,26 @@ app.use(_.get('/people', function* (id) {
 	this.body = yield knexQuery;
 }));
 
+app.use(_.get('/publications', function* () {
+	const queryParams = queryString.parse(this.request.querystring)
+
+
+	let knexQuery = knex.select(['title', 'DB_id']).from('pub_Publications');
+	knexQuery = knexQuery.orderBy('title', 'asc');
+
+	if(queryParams.title !== undefined) {
+		knexQuery = knexQuery.where('title', 'like', '%' + queryParams.title + '%');
+	}
+
+	if(queryParams.limit !== undefined && queryParams.offset !== undefined) {
+		const count = yield knexQuery.clone().count().then((result) => result[0]['count(*)']);
+		knexQuery = knexQuery.limit(parseInt(queryParams.limit)).offset(parseInt(queryParams.offset));		
+		this.set('X-total-count', count);
+	}
+
+	this.body = yield knexQuery;
+}));
+
 // $ GET /package.json
 // or use absolute paths
 app.use(_.get('/publications/:id', function* (id) {

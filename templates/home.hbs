@@ -1,7 +1,10 @@
 <div id='main'>
 	<small>A database of historic and contemporary writers from Ireland</small>
-	<input type='text' class='big-search' id='name-filter' placeholder='Type to search..' value='{{initialSearchValue}}' />
-	<h2>All People</h2>
+	<h2><span>People</span> <span class='inactive'>Publications</span></h2>
+	<input type='text' class='big-search' id='name-filter' placeholder='Type to search..' value='{{initialSearchValue}}' />	
+	<div>
+		Sort by <a>Surname</a>, <a>Firstname</a>, <a>Date of Birth</a>
+	</div>
 	<span id='people-list-target'>
 		{{> _peopleList }}
 	</span>	

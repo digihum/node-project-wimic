@@ -23,3 +23,10 @@ body {
 	background: url(/paper_fibers.png);
     font-family: 'Vollkorn', serif;
 }
+
+
+h2 span.inactive {
+    color: #7f1104;
+    text-decoration: underline;
+    font-size: 0.6em;
+}

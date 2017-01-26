@@ -40,7 +40,7 @@ $(document).ready(function() {
 
 		const queryValues = queryString.parse(ctx.querystring);
 
-		const apiQuery = { offset: 0, limit: 50 };
+		const apiQuery = { offset: 0, limit: 80 };
 
 		if (queryValues.search !== undefined) {
 			apiQuery.search = queryValues.search;
@@ -54,13 +54,27 @@ $(document).ready(function() {
 			apiQuery.limit = queryValues.limit;
 		}
 
-		getJSON('people?' + queryString.stringify(apiQuery) ).then((data, status, xhr) => {
+		const mode = queryValues.mode || 'people';
+
+		getJSON(mode + '?' + queryString.stringify(apiQuery) ).then((data, status, xhr) => {
+
+			let currentLabel = undefined;
+			data = data.map((datum) => {
+				if(datum.lastname_keyname === null ? currentLabel !== null : datum.lastname_keyname[0] !== currentLabel) {
+					datum.header = datum.lastname_keyname === null ? 'Unknown' : datum.lastname_keyname[0];
+					currentLabel = datum.lastname_keyname === null ? null : datum.lastname_keyname[0];
+				}
+				if(datum.firstname === null && datum.lastname_keyname === null) {
+					datum.lastname_keyname = 'Unknown Name';
+				}
+				return datum;
+			});
 
 			if(document.getElementById('people-list-target') !== null) {
 
 				document.getElementById('people-list-target').innerHTML = partials.peopleList({ people: data, initialSearchValue: queryValues.search || '' });
 			} else {
-				renderTarget.innerHTML = templates.home({ people: data, initialSearchValue: queryValues.search || '' });
+				renderTarget.innerHTML = templates.home({ people: data, initialSearchValue: queryValues.search || '', mode: mode });
 				document.getElementById('name-filter').addEventListener('keyup', function(e) {
 					if (e.target.value.length > 0) {
 						apiQuery.search = e.target.value;
@@ -74,7 +88,7 @@ $(document).ready(function() {
 
 			$('#main-pagination').twbsPagination({
 				totalPages: Math.ceil(parseInt(xhr.getResponseHeader('X-total-count'))/apiQuery.limit),
-				visiblePages: 12,
+				visiblePages: 7,
 				startPage: Math.floor(parseInt(apiQuery.offset)/parseInt(apiQuery.limit)) + 1,
 				initiateStartPageClick: false,
 				onPageClick: function (event, pageNum) {
