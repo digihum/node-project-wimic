@@ -1,11 +1,11 @@
-<div id='main'>
+<div id='irish-writers-main'>
 	<small>A database of historic and contemporary writers from Ireland</small>
-	<h2><span>People</span> <span class='inactive'>Publications</span></h2>
+	<h2><span>People</span> <span class='inactive' id='switch-to-publications'>Publications</span></h2>
 	<input type='text' class='big-search' id='name-filter' placeholder='Type to search..' value='{{initialSearchValue}}' />	
 	<div>
 		Sort by <a>Surname</a>, <a>Firstname</a>, <a>Date of Birth</a>
 	</div>
-	<span id='people-list-target'>
+	<span id='list-target'>
 		{{> _peopleList }}
 	</span>	
 </div>
