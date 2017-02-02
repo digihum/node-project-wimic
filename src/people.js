@@ -27,26 +27,7 @@ module.exports = function(data, xhr, page, apiQuery, renderTarget, queryValues) 
         return datum;
     });
 
-    if(document.getElementById('list-target') !== null) {
-
-        document.getElementById('list-target').innerHTML = partials.peopleList({ people: data, initialSearchValue: queryValues.search || '' });
-    } else {
-        renderTarget.innerHTML = templates.home({ people: data, initialSearchValue: queryValues.search || '' });
-
-        document.getElementById('switch-to-publications').addEventListener('click', function(e) {					
-            page.redirect('/?mode=publications');		
-        });
-
-        document.getElementById('name-filter').addEventListener('keyup', function(e) {
-            if (e.target.value.length > 0) {
-                apiQuery.search = e.target.value;
-                apiQuery.offset = 0;					
-            } else {
-                delete apiQuery.search;
-            }			
-            page.redirect('/?' + queryString.stringify(apiQuery));		
-        });
-    }
+    document.getElementById('list-target').innerHTML = partials.peopleList({ people: data });
 
     $('#main-pagination').twbsPagination({
         totalPages: Math.ceil(parseInt(xhr.getResponseHeader('X-total-count'))/apiQuery.limit),

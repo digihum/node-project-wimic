@@ -77,6 +77,11 @@ app.use(_.get('/publications', function* () {
 		knexQuery = knexQuery.where('title', 'like', '%' + queryParams.title + '%');
 	}
 
+	if(queryParams.search !== undefined) {
+		knexQuery = knexQuery
+		.where('title', 'like', '%' + queryParams.search + '%');
+	}
+
 	if(queryParams.limit !== undefined && queryParams.offset !== undefined) {
 		const count = yield knexQuery.clone().count().then((result) => result[0]['count(*)']);
 		knexQuery = knexQuery.limit(parseInt(queryParams.limit)).offset(parseInt(queryParams.offset));		
