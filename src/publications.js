@@ -23,14 +23,16 @@ module.exports = function(data, xhr, page, apiQuery, renderTarget, queryValues) 
 
     document.getElementById('list-target').innerHTML = partials.pubList({ pubs: data });
 
-    $('#main-pagination').twbsPagination({
-        totalPages: Math.ceil(parseInt(xhr.getResponseHeader('X-total-count'))/apiQuery.limit),
-        visiblePages: 7,
-        startPage: Math.floor(parseInt(apiQuery.offset)/parseInt(apiQuery.limit)) + 1,
-        initiateStartPageClick: false,
-        onPageClick: function (event, pageNum) {
-            apiQuery.offset = (pageNum - 1) * apiQuery.limit;
-            page.redirect('/publications/?' + queryString.stringify(apiQuery));
-        }
-    });
+    if (data.length > 0) {
+        $('#main-pagination').twbsPagination({
+            totalPages: Math.ceil(parseInt(xhr.getResponseHeader('X-total-count'))/apiQuery.limit),
+            visiblePages: 7,
+            startPage: Math.floor(parseInt(apiQuery.offset)/parseInt(apiQuery.limit)) + 1,
+            initiateStartPageClick: false,
+            onPageClick: function (event, pageNum) {
+                apiQuery.offset = (pageNum - 1) * apiQuery.limit;
+                page.redirect('/publications/?' + queryString.stringify(apiQuery));
+            }
+        });
+    }
 }

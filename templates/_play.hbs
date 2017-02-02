@@ -1,0 +1,28 @@
+{{#if play }}
+<div class='info'>
+    <span>Type: Play</span>
+		{{#if play.place_of_first_production_country}}
+			<span>Place of first production: {{play.place_of_first_production_country}} | {{play.place_of_first_production_county}} | {{play.place_of_first_production_settlement}}</span>
+		{{/if}}
+
+		{{#if play.place_of_first_revival_country}}
+			<span>Place of first revival: {{play.place_of_first_revival_country}} | {{play.place_of_first_revival_county}} | {{play.place_of_first_revival_settlement}}</span>
+		{{/if}}
+
+		{{#if play.first_revival_year }}
+			<span>From: {{play.first_revival_day}}/{{play.first_revival_month}}/{{play.first_revival_year}}</span>
+		{{/if}}
+
+    {{#if play.theatre_company }}
+			<span>Theatre company: {{play.theatre_company}}</span>
+		{{/if}}
+
+    {{#if play.venue }}
+			<span>Revival Venue: {{play.venue}}</span>
+		{{/if}}
+
+		{{#if play.notes }}
+			<span>Notes: {{play.notes}}</span>
+		{{/if}}
+</div>
+{{/if}}

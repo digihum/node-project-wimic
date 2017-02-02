@@ -1,0 +1,28 @@
+{{#if journalEdition }}
+<div class='info'>
+    <span>Type: Journal Edition</span>
+  
+    {{#if journalEdition.season }}
+		<span>Season: {{journalEdition.season}}</span>
+	{{/if}}
+
+
+    {{#if journalEdition.from_year }}
+		<span>From: {{journalEdition.from_month}} {{journalEdition.from_year}}</span>
+	{{/if}}
+
+
+    {{#if journalEdition.to_year }}
+		<span>To: {{journalEdition.to_year}} {{journalEdition.to_year}}</span>
+	{{/if}}
+
+
+    {{#if journalEdition.edition_subseries }}
+		<span>Edition subseries: {{journalEdition.edition_subseries}}</span>
+	{{/if}}
+
+    {{#if journalEdition.notes }}
+		<span>Notes: {{journalEdition.notes}}</span>
+	{{/if}}
+</div>
+{{/if}}

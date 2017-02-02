@@ -1,0 +1,28 @@
+{{#if book }}
+<div class='info'>
+    <span>Type: Book</span>
+  
+    {{#if book.number_of_volumes }}
+		<span>Number of volumes: {{book.number_of_volumes}}</span>
+	{{/if}}
+
+
+    {{#if book.number_of_pages }}
+		<span>Number of pages: {{book.number_of_pages}}</span>
+	{{/if}}
+
+
+    {{#if book.known_reprints }}
+		<span>Known reprints: {{book.known_reprints}}</span>
+	{{/if}}
+
+
+    {{#if book.illustrated }}
+		<span>Illustrated: {{book.illustrated}}</span>
+	{{/if}}
+
+    {{#if book.notes }}
+		<span>Notes: {{book.notes}}</span>
+	{{/if}}
+</div>
+{{/if}}

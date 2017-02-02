@@ -33,10 +33,27 @@ const setupSwitchDimensions = (page, apiQuery) => $('#switch-dimension').on('cli
 		page.redirect('/people/?' + queryString.stringify(apiQuery));
 	}
 
-	if (location.hash.search('#!/people/') === 0 || location.hash.length === 0) {
+	if (location.hash.search('#!/people/') === 0 || location.hash.length === 0 || location.hash.search('#!/?') === 0) {
 		page.redirect('/publications/?' + queryString.stringify(apiQuery));
 	}
 	
+});
+
+const setupNameFilter = (page, apiQuery) => document.getElementById('name-filter').addEventListener('keyup', function(e) {
+	if (e.target.value.length > 0) {
+		apiQuery.search = e.target.value;
+		apiQuery.offset = 0;					
+	} else {
+		delete apiQuery.search;
+	}
+	
+	if (location.hash.search('#!/publications/') === 0) {
+		page.redirect('/publications/?' + queryString.stringify(apiQuery));
+	}
+
+	if (location.hash.search('#!/people/') === 0 || location.hash.length === 0 || location.hash.search('#!/?') === 0) {
+		page.redirect('/people/?' + queryString.stringify(apiQuery));
+	}
 });
 
 const home = (ctx) => {
@@ -45,43 +62,17 @@ const home = (ctx) => {
 
 	const queryValues = queryString.parse(ctx.querystring);
 
-	const apiQuery = { offset: 0, limit: 80 };
-
-	if (queryValues.search !== undefined) {
-		apiQuery.search = queryValues.search;
-	}
-
-	if (queryValues.offset !== undefined) {
-		apiQuery.offset = queryValues.offset;
-	}
-
-	if (queryValues.limit !== undefined) {
-		apiQuery.limit = queryValues.limit;
-	}
+	const apiQuery = _.omit({ 
+		search: queryValues.search,
+		offset: queryValues.offset || 0,
+		limit: queryValues.limit || 80
+	}, _.isUndefined);	
 
 	getJSON('people?' + queryString.stringify(apiQuery) ).then((data, status, xhr) => {
 		
 		if (document.getElementById('irish-writers-main') === null) {
-
-			renderTarget.innerHTML = templates.home({initialSearchValue: queryValues.search || '' });			
-
-			document.getElementById('name-filter').addEventListener('keyup', function(e) {
-				if (e.target.value.length > 0) {
-					apiQuery.search = e.target.value;
-					apiQuery.offset = 0;					
-				} else {
-					delete apiQuery.search;
-				}
-				
-				if (location.hash.search('#!/publications/') === 0) {
-					page.redirect('/publications/?' + queryString.stringify(apiQuery));
-				}
-
-				if (location.hash.search('#!/people/') === 0 || location.hash.length === 0) {
-					page.redirect('/people/?' + queryString.stringify(apiQuery));
-				}
-			});
-
+			renderTarget.innerHTML = templates.home({initialSearchValue: queryValues.search || '' });
+			setupNameFilter(page, apiQuery);
 			setupSwitchDimensions(page, apiQuery);
 		}
 
@@ -98,19 +89,11 @@ const publications = (ctx) => {
 	
 	const queryValues = queryString.parse(ctx.querystring);
 
-	const apiQuery = { offset: 0, limit: 80 };
-
-	if (queryValues.search !== undefined) {
-		apiQuery.search = queryValues.search;
-	}
-
-	if (queryValues.offset !== undefined) {
-		apiQuery.offset = queryValues.offset;
-	}
-
-	if (queryValues.limit !== undefined) {
-		apiQuery.limit = queryValues.limit;
-	}
+	const apiQuery = _.omit({ 
+		search: queryValues.search,
+		offset: queryValues.offset || 0,
+		limit: queryValues.limit || 80
+	}, _.isUndefined);	
 
 	getJSON('publications?' + queryString.stringify(apiQuery) ).then((data, status, xhr) => {
 		
@@ -118,17 +101,7 @@ const publications = (ctx) => {
 
 			renderTarget.innerHTML = templates.home({initialSearchValue: queryValues.search || '' });		
 
-
-			document.getElementById('name-filter').addEventListener('keyup', function(e) {
-				if (e.target.value.length > 0) {
-					apiQuery.search = e.target.value;
-					apiQuery.offset = 0;					
-				} else {
-					delete apiQuery.search;
-				}			
-				page.redirect('/publications/?' + queryString.stringify(apiQuery));		
-			});		
-
+			setupNameFilter(page, apiQuery);
 			setupSwitchDimensions(page, apiQuery);
 		}
 			

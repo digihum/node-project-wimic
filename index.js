@@ -107,7 +107,7 @@ app.use(_.get('/publications/:id', function* (id) {
 		.where({ publication_id: id })
 		.innerJoin('people', 'col_Authors.person_id', 'people.DB_id')
 
-	this.body = { core, play, movie, article, book, bookChapter, article, authors };
+	this.body = { core, play, movie, journalEdition, book, bookChapter, article, authors };
 }));
 
 app.use(_.get('/people/:id', function* (id) {
