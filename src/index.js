@@ -19,7 +19,7 @@ const templates = {
 };
 
 const partials = {
-	peopleList: require('../templates/_peopleList.hbs')
+	fakeMenu: require('../templates/_tertiary_menu.hbs')
 };
 
 
@@ -129,9 +129,14 @@ $(document).ready(function() {
 
 	page('/people/:id', function(ctx) {
 		getJSON('people/' + ctx.params.id).then((data) => {
+
+			$('.wimic-fake-menu').remove();
+			$('.id7-navigation.affix-top.headroom.headroom--top').append(partials.fakeMenu({ baseURL: rootURL }));
+
 			let name = [data.core.title, data.core.firstname, data.core.lastname_keyname]
 			.filter((a) => a !== null && a !== undefined)
-			.join(' ');
+			.join(' ') || 'Unknown Name';
+			
 			$('.id7-page-title h1').text(name);
 			renderTarget.innerHTML = templates.person(data);
 		});
@@ -140,7 +145,9 @@ $(document).ready(function() {
 	page('/publications/:id', function(ctx) {
 
 		getJSON('publications/' + ctx.params.id).then((data) => {
-			$('.id7-page-title h1').text(data.core.title);
+			$('.wimic-fake-menu').remove();
+			$('.id7-navigation.affix-top.headroom.headroom--top').append(partials.fakeMenu({ baseURL: rootURL }));
+			$('.id7-page-title h1').text(data.core.title || 'Unknown Title');
 			renderTarget.innerHTML = templates.item(data);
 		});
 	});
