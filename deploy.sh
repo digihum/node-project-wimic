@@ -1,1 +1,0 @@
-curl -i -X POST --data-binary @public/site.js -H 'Content-Type: application/javascript' -H 'site.js' -u u1572229 "https://sitebuilder.warwick.ac.uk/sitebuilder2/edit/atom/file.htm?page=/fac/arts/research/digitalhumanities/tim-sandbox"

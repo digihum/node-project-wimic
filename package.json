@@ -18,10 +18,10 @@
     "handlebars": "^4.0.6",
     "js-yaml": "^3.7.0",
     "knex": "^0.12.6",
-    "koa": "^1.2.4",
+    "koa": "^2.2.0",
     "koa-cors": "0.0.16",
     "koa-gzip": "^0.1.0",
-    "koa-route": "^2.4.2",
+    "koa-route": "^3.2.0",
     "koa-static": "^2.0.0",
     "page": "^1.7.1",
     "sqlite3": "^3.1.8"
