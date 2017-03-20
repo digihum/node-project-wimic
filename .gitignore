@@ -5,3 +5,4 @@ Homestead.yaml
 .env
 node_modules
 mydb.sqlite
+*.env

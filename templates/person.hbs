@@ -90,7 +90,7 @@
 		<h2>Works</h2>
 		<ul>
 		{{#each works}}
-			<li><a href='#!/publications/{{publication_id}}'>{{title}}</a></li>
+			<li><span><span class='role-name'>{{role}}: </span><a href='#!/publications/{{work.publication_id}}'>{{work.title}}</a></span></li>
 		{{/each}}
 		</ul>
 	{{/if}}
