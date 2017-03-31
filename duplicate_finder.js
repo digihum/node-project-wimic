@@ -52,6 +52,10 @@ const findDuplicatePeople = async () => {
 			.del()
 			.where('person_id', '=', id)
 
+			await knex('people')
+			.del()
+			.where('DB_id', '=', id)
+
 
 			console.log('found duplicate', noId['lastname_keyname'], id, alreadyFound.get(stringified));
 		}
@@ -89,6 +93,10 @@ const findDuplicatePublications = async () => {
 			await knex('col_Authors')
 			.del()
 			.where('publication_id', '=', id)
+
+			await knex('pub_Publications')
+			.del()
+			.where('DB_id', '=', id)
 
 
 			console.log('found duplicate', noId['title'], id, alreadyFound.get(stringified));
