@@ -9,7 +9,7 @@ const targetId = 'render-target';
 let renderTarget = null;
 
 const apiURL = 'http://sodvu.lnx.warwick.ac.uk/';
-const rootURL = '/fac/arts/research/digitalhumanities/tim-sandbox/';
+const rootURL = '/fac/arts/history/irishwomenwriters/database/';
 
 const templates = {
 	home: require('../templates/home.hbs'),
