@@ -55,7 +55,7 @@ app.use(_.get('/publications',  async (ctx) => {
 /**
  * Get a single publication
  */
-app.use(_.get('/publication/:id', async (ctx, id) => {
+app.use(_.get('/publications/:id', async (ctx, id) => {
 	ctx.body = await api.getSinglePublication(knex, id);
 }));
 
