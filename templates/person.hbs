@@ -8,7 +8,7 @@
 		<span>Birth date: {{#if core.dob_is_circa }}	Circa {{/if}}{{core.birth_day_of_month}}/{{core.birth_month}}/{{core.birth_year}}</span>		{{/if}} {{#if core.born_country}}
 		<span>Birthplace: {{core.born_country}}, {{core.born_county}}, {{core.born_settlement}}</span> {{/if}} {{#if core.died_day_of_month
 		}}
-		<span>Death date: {{#if core.dod_is_circa }} Circa {{/if}} {{core.died_day_of_month}}/{{core.died_month}}/{{core.died_year}}</span>		{{/if}} {{#if core.died_country}}
+		<span>Death date: {{#if core.dod_is_circa }} Circa {{/if}} {{#if core.dod_is_fl }} FL {{/if}} {{core.died_day_of_month}}/{{core.died_month}}/{{core.died_year}}</span>		{{/if}} {{#if core.died_country}}
 		<span>Deathplace: {{core.died_country}}, {{core.died_county}}, {{core.died_settlement}}</span> {{/if}} {{#if core.alternative_spelling
 		}}
 		<span>Male/Female: {{core.male_female}}</span> {{/if}} {{#if core.middle_names }}
