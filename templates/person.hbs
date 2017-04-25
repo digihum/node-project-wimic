@@ -2,97 +2,39 @@
 
 	<div class='info'>
 
-	{{#if core.alternative_spelling }}
-		<span>Alternative Spelling: {{core.alternative_spelling}}</span>
-	{{/if}}
-
-	{{#if core.associated_places }}
-		<span>Associated places: {{core.associated_places}}</span>
-	{{/if}}
-
-	{{#if core.birth_day_of_month }}
-		<span>Birth date: {{core.birth_day_of_month}}/{{core.birth_month}}/{{core.birth_year}}</span>
-	{{/if}}
-
-	{{#if core.born_country}}
-		<span>Birthplace: {{core.born_country}}, {{core.born_county}}, {{core.born_settlement}}</span>
-	{{/if}}
-
-
-	{{#if core.died_day_of_month }}
-		<span>Death date: {{core.died_day_of_month}}/{{core.died_month}}/{{core.died_year}}</span>
-	{{/if}}
-
-
-	{{#if core.died_country}}
-		<span>Deathplace: {{core.died_country}}, {{core.died_county}}, {{core.died_settlement}}</span>
-	{{/if}}
-
-	{{#if core.alternative_spelling }}
-		<span>Male/Female: {{core.male_female}}</span>
-	{{/if}}
-
-	{{#if core.middle_names }}
-		<span>Middle names: {{core.middle_names}}</span>
-	{{/if}}
-
-	{{#if core.notes }}
-		<span>Education: {{core.education}}</span>
-	{{/if}}
-
-	{{#if core.sources }}
-		<span>Sources: {{core.sources}}</span>
-	{{/if}}
-
-	{{#if core.notes }}
-		<span>Notes: {{core.notes}}</span>
-	{{/if}}
-
-
-	{{#if core.dob_is_circa }}
-		<span>dob_is_circa: {{core.dob_is_circa}}</span>
-	{{/if}}
-
-		{{#if core.dob_is_fl }}
-		<span>dob_is_fl: {{core.dob_is_fl}}</span>
-	{{/if}}
-
-	{{#if core.dod_is_circa }}
-		<span>dod_is_circa: {{core.dod_is_circa}}</span>
-	{{/if}}
-
-	{{#if core.dod_is_fl }}
-		<span>dod_is_fl: {{core.dod_is_fl}}</span>
-	{{/if}}
-
-		{{#if core.firstname_alternative_spelling }}
-		<span>Alternative spelling of firstname: {{core.firstname_alternative_spelling}}</span>
-	{{/if}}
-
-	{{#if core.is_alternative_name_of }}
-		<span>Is alternative name of: <a href='#!/people/{{core.is_alternative_name_of}}'>{{core.alt_title}} {{core.alt_firstname}} {{core.alt_lastname_keyname}}</a></span>
-	{{/if}}
-
-	{{#if core.is_master_name }}
-		<span>is_master_name: {{core.is_master_name}}</span>
-	{{/if}}
-
-	{{#if core.primary_researcher }}
-		<span>Primary researcher: {{core.primary_researcher}}</span>
-	{{/if}}
-
-	{{#if core.type_of_name }}
-		<span>Type of name: {{core.type_of_name}}</span>
-	{{/if}}
+		{{#if core.alternative_spelling }}
+		<span>Alternative Spelling: {{core.alternative_spelling}}</span> {{/if}} {{#if core.associated_places }}
+		<span>Associated places: {{core.associated_places}}</span> {{/if}} {{#if core.birth_day_of_month }}
+		<span>Birth date: {{#if core.dob_is_circa }}	Circa {{/if}}{{core.birth_day_of_month}}/{{core.birth_month}}/{{core.birth_year}}</span>		{{/if}} {{#if core.born_country}}
+		<span>Birthplace: {{core.born_country}}, {{core.born_county}}, {{core.born_settlement}}</span> {{/if}} {{#if core.died_day_of_month
+		}}
+		<span>Death date: {{#if core.dod_is_circa }} Circa {{/if}} {{core.died_day_of_month}}/{{core.died_month}}/{{core.died_year}}</span>		{{/if}} {{#if core.died_country}}
+		<span>Deathplace: {{core.died_country}}, {{core.died_county}}, {{core.died_settlement}}</span> {{/if}} {{#if core.alternative_spelling
+		}}
+		<span>Male/Female: {{core.male_female}}</span> {{/if}} {{#if core.middle_names }}
+		<span>Middle names: {{core.middle_names}}</span> {{/if}} {{#if core.notes }}
+		<span>Education: {{core.education}}</span> {{/if}} {{#if core.sources }}
+		<span>Sources: {{core.sources}}</span> {{/if}} {{#if core.notes }}
+		<span>Notes: {{core.notes}}</span> {{/if}} {{#if core.firstname_alternative_spelling }}
+		<span>Alternative spelling of firstname: {{core.firstname_alternative_spelling}}</span> {{/if}} {{#if core.is_alternative_name_of
+		}}
+		<span>Is alternative name of: <a href='#!/people/{{core.is_alternative_name_of}}'>{{core.alt_title}} {{core.alt_firstname}} {{core.alt_lastname_keyname}}</a></span>		{{/if}} {{#if core.is_master_name }}
+		<span>Primary researcher: {{core.primary_researcher}}</span> {{/if}} {{#if core.type_of_name }}
+		<span>Type of name: {{core.type_of_name}}</span> {{/if}}
 
 	</div>
 	{{#if works}}
-		<h2>Works</h2>
-		<ul>
+	<h2>Works</h2>
+	<ul>
 		{{#each works}}
-			<li><span><span class='role-name'>{{role}}: </span><a href='#!/publications/{{work.publication_id}}'>{{work.title}}</a></span></li>
+		<li><span><span class='role-name'>{{role}}: </span><a href='#!/publications/{{work.publication_id}}'>{{work.title}}</a></span>
+		</li>
 		{{/each}}
-		</ul>
+	</ul>
 	{{/if}}
-</div>
 
+	<div class='citation'>
+		<h5>Citation</h5>
+		<p>{{citation}}</p>
+	</div>
+</div>

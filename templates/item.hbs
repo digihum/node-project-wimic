@@ -1,17 +1,18 @@
-
 <div id='main'>
 	<h4>People</h4>
 	<ul>
-		{{#each authors}}			
-			<li><span><span class='role-name'>{{role}}: </span><a href='#!/people/{{work.person_id}}'>{{work.title}} {{work.firstname}} {{work.lastname_keyname}}</a></span></li>
+		{{#each authors}}
+		<li><span><span class='role-name'>{{role}}: </span><a href='#!/people/{{work.person_id}}'>{{work.title}} {{work.firstname}} {{work.lastname_keyname}}</a></span>
+		</li>
 		{{/each}}
 	</ul>
 	<h4>Details</h4>
-	<div>Genre: {{core.genre}}</div>	
+	<div>Genre: {{core.genre}}</div>
 
-	{{>_movie}}
-	{{>_article}}
-	{{>_book}}
-	{{>_play}}
-	{{>_journal}}
+	{{>_movie}} {{>_article}} {{>_book}} {{>_play}} {{>_journal}}
+
+	<div class='citation'>
+		<h5>Citation</h5>
+		<p>{{citation}}</p>
+	</div>
 </div>
